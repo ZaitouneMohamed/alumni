@@ -1,4 +1,5 @@
 @include('landing.auth.register')
+@include('landing.auth.login')
 <div class="site-mobile-menu site-navbar-target">
     <div class="site-mobile-menu-header">
         <div class="site-mobile-menu-close">
@@ -49,6 +50,7 @@
                             <li><a href="category.html">Business</a></li>
                             <li><a href="category.html">Politics</a></li>
                             <li><a data-bs-toggle="modal" data-bs-target="#registerForm">Register</a></li>
+                            <li><a data-bs-toggle="modal" data-bs-target="#loginForm">login</a></li>
                         </ul>
                     </div>
                     <div class="col-2 text-end">
