@@ -1,3 +1,4 @@
+@include('landing.auth.register')
 <div class="site-mobile-menu site-navbar-target">
     <div class="site-mobile-menu-header">
         <div class="site-mobile-menu-close">
@@ -47,10 +48,12 @@
                             <li><a href="category.html">Culture</a></li>
                             <li><a href="category.html">Business</a></li>
                             <li><a href="category.html">Politics</a></li>
+                            <li><a data-bs-toggle="modal" data-bs-target="#registerForm">Register</a></li>
                         </ul>
                     </div>
                     <div class="col-2 text-end">
-                        <a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light">
+                        <a href="#"
+                            class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light">
                             <span></span>
                         </a>
                         <form action="#" class="search-form d-none d-lg-inline-block">
