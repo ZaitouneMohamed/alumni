@@ -45,39 +45,19 @@
                     <h3 class="mb-4">Recent Post Entry</h3>
                     <div class="post-entry-footer">
                         <ul>
-                            <li>
-                                <a href="">
-                                    <img src="images/img_1_sq.jpg" alt="Image placeholder" class="me-4 rounded">
-                                    <div class="text">
-                                        <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-                                        <div class="post-meta">
-                                            <span class="mr-2">March 15, 2018 </span>
+                            @foreach (\App\Models\Post::where('type', 3)->orderBy('id', 'DESC')->take(4)->get() as $item)
+                                <li>
+                                    <a href="{{route('post.show',$item)}}">
+                                        <img src="{{ asset('assets/landing/images/img_3_sq.jpg') }}" alt="Image placeholder" class="me-4 rounded">
+                                        <div class="text">
+                                            <h4>{{Str::limit($item->title, 20, '...')  }}</h4>
+                                            <div class="post-meta">
+                                                <span class="mr-2">March 15, 2018 </span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <img src="images/img_2_sq.jpg" alt="Image placeholder" class="me-4 rounded">
-                                    <div class="text">
-                                        <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-                                        <div class="post-meta">
-                                            <span class="mr-2">March 15, 2018 </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <img src="images/img_3_sq.jpg" alt="Image placeholder" class="me-4 rounded">
-                                    <div class="text">
-                                        <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-                                        <div class="post-meta">
-                                            <span class="mr-2">March 15, 2018 </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
 
@@ -86,7 +66,7 @@
             </div> <!-- /.col-lg-4 -->
         </div> <!-- /.row -->
 
-        <div class="row mt-5">
+        {{-- <div class="row mt-5">
             <div class="col-12 text-center">
                 <p>Copyright &copy;
                     <script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash;
@@ -94,7 +74,7 @@
                         href="https://themewagon.com">ThemeWagon</a>
                 </p>
             </div>
-        </div>
+        </div> --}}
     </div> <!-- /.container -->
 </footer> <!-- /.site-footer -->
 
