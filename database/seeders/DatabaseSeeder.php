@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesSeeder::class);
         $this->call(UsersSeeder::class);
         \App\Models\Tags::factory(10)->create();
-        \App\Models\Post::factory(50)->create();
-        \App\Models\Comments::factory(50)->create();
+        // \App\Models\Post::factory(50)->create();
+        // \App\Models\Comments::factory(50)->create();
         // \App\Models\User::factory(10)->create();
     }
 }

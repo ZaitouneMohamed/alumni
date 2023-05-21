@@ -15,8 +15,7 @@
             <div class="site-navigation">
                 <div class="row g-0 align-items-center">
                     <div class="col-2">
-                        <img src="{{ asset('images/IFIAG.png') }}" alt="/"
-                            style="height: 154px;">
+                        <img src="{{ asset('images/IFIAG.png') }}" alt="/" style="height: 154px;">
                     </div>
                     <div class="col-8 text-center">
 
@@ -39,6 +38,9 @@
                                 <li><a href="{{ route('chat') }}">Chat</a></li>
                                 <li><a href="{{ route('logout') }}">Logout</a></li>
                                 <li><a href="/profile">profile</a></li>
+                                @if (!auth()->user()->hasRole('etudiant'))
+                                    <li><a href="{{ route('post.create') }}">create post</a></li>
+                                @endif
                             @endauth
                             @guest
                                 <li><a data-bs-toggle="modal" data-bs-target="#registerForm">Register</a></li>
