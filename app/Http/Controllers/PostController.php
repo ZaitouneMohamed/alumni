@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware("role:admin")->except("show");
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware("role:etudiant")->only("create","store");
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +29,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        if (auth()->user()->hasRole("etudiant")) {
+            return redirect()->back();
+        }
+        return view('landing.content.create');
     }
 
     /**
@@ -39,7 +43,20 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->has('image')) {
+            $file = $request ->image;
+            $image_name = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/posts'),$image_name);
+        }
+        $post = Post::create([
+            "title" => $request->title,
+            "slug" => Str::slug($request->title) ,
+            "body" => $request->body,
+            "type" => $request->type,
+            "image" => $image_name,
+            "user_id" => auth()->user()->id
+        ]);
+        return redirect()->route("post.show",$post);
     }
 
     /**
@@ -50,7 +67,11 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        $post->views += 1;
+        $post->save();
+        return view('landing.content.view')->with([
+            'post' => $post
+        ]);
     }
 
     /**
