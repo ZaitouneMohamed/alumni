@@ -1,17 +1,3 @@
-{{-- <div wire:poll>
-    @if ($messages->count() != 0)
-        <ul class="list-group">
-            @foreach ($messages as $message)
-                <li class="list-group-item">{{ $message->message }}</li>
-            @endforeach
-        </ul>
-        <input type="text" wire:model="body"><button class="btn btn-success" wire:click="sendMessage()">send</button>
-        {{ $body }}
-        @else
-        <p>No messages available</p>{{ $selectedConversationId }}
-        <input type="text" wire:model="body"><button class="btn btn-success" wire:click="sendMessage()">send</button>
-    @endif
-</div> --}}
 <div class="card" wire:poll>
     @if ($selectedConversationId)
         @if ($messages->count() != 0)
@@ -23,8 +9,17 @@
                         <span class="online_icon"></span>
                     </div>
                     <div class="user_info">
-                        <span>Chat with Khalid</span>
-                        <p>{{ $messages->count() }}</p>
+                        @if (\App\Models\Conversation::find($selectedConversationId)->sender_id === auth()->user()->id)
+                            @php
+                                $user = \App\Models\Conversation::find($selectedConversationId)->receiver_id;
+                            @endphp
+                            <span>Chat with {{ \App\Models\User::find($user)->first_name }} {{ \App\Models\User::find($user)->last_name }}</span>
+                        @else
+                            @php
+                                $user = \App\Models\Conversation::find($selectedConversationId)->sender_id;
+                            @endphp
+                            <span>Chat with {{ \App\Models\User::find($user)->first_name }} {{ \App\Models\User::find($user)->last_name }}</span>
+                        @endif
                     </div>
                 </div>
                 <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
@@ -84,33 +79,33 @@
                 </div>
             </div>
         @else
-        <div class="card-header msg_head">
-            <div class="d-flex bd-highlight">
-                <div class="img_cont">
-                    <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                        class="rounded-circle user_img">
-                    <span class="online_icon"></span>
+            <div class="card-header msg_head">
+                <div class="d-flex bd-highlight">
+                    <div class="img_cont">
+                        <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                            class="rounded-circle user_img">
+                        <span class="online_icon"></span>
+                    </div>
+                    <div class="user_info">
+                        <span>Chat with Khalidd </span>
+                        <p>{{ $selectedConversationId }}</p>
+                    </div>
                 </div>
-                <div class="user_info">
-                    <span>Chat with Khalid</span>
-                    <p>{{ $messages->count() }}</p>
+                <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
+                <div class="action_menu">
+                    <ul>
+                        <li><i class="fas fa-user-circle"></i> View profile</li>
+                        <li><i class="fas fa-users"></i> Add to close friends</li>
+                        <li><i class="fas fa-plus"></i> Add to group</li>
+                        <li><i class="fas fa-ban"></i> Block</li>
+                    </ul>
                 </div>
             </div>
-            <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
-            <div class="action_menu">
-                <ul>
-                    <li><i class="fas fa-user-circle"></i> View profile</li>
-                    <li><i class="fas fa-users"></i> Add to close friends</li>
-                    <li><i class="fas fa-plus"></i> Add to group</li>
-                    <li><i class="fas fa-ban"></i> Block</li>
-                </ul>
+            <div class="d-flex justify-content-start mb-4">
+                <div class="container">
+                    <p class="text-center text-white">no message here</p>
+                </div>
             </div>
-        </div>
-        <div class="d-flex justify-content-start mb-4">
-            <div class="container">
-                <p class="text-center text-white">no message here</p>
-            </div>
-        </div>
             <div class="card-footer">
                 <div class="input-group">
                     <div class="input-group-append">

@@ -1,15 +1,3 @@
-{{-- <ul class="list-group">
-    conversation list   
-    @foreach ($conversations as $item)
-        <li class="list-group-item" wire:click="selectConversation({{ $item->id }})">
-            {{ \App\Models\User::find($item->receiver_id)->name }} .
-            @if ($item->Messages->count() != 0)
-                {{ Str::limit($item->Messages->last()->message, 10, '...') }}
-            @endif
-            {{ $item->Messages->count() }}
-        </li>
-    @endforeach
-</ul> --}}
 <ul class="contacts">
     @foreach ($conversations as $item)
         <li wire:click="selectConversation({{ $item->id }})">
@@ -20,9 +8,9 @@
                 </div>
                 <div class="user_info">
                     @if ($item->receiver_id === auth()->user()->id)
-                        <span>{{ \App\Models\User::find($item->sender_id)->first_name }} .</span>
+                        <span>{{ \App\Models\User::find($item->sender_id)->first_name }} {{ \App\Models\User::find($item->sender_id)->first_name }} </span>
                     @else
-                        <span>{{ \App\Models\User::find($item->receiver_id)->first_name }} .</span>
+                        <span>{{ \App\Models\User::find($item->receiver_id)->first_name }} {{ \App\Models\User::find($item->receiver_id)->first_name }}</span>
                     @endif
                     @if ($item->Messages->count() != 0)
                         <p>{{ Str::limit($item->Messages->last()->message, 10, '...') }}</p>
